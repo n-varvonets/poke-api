@@ -1,3 +1,7 @@
+# GitHub Actions status
+Status of last Deployment: <br>
+<img src="https://github.com/n-varvonets/poke-api/workflows/CI-CD-PokeApi-to-AWS-ElasticBeanstalk/badge.svg?branch=main"><br>
+
 # Task:
 Создать ВЕБ Сервис - “Pokeapi”:
 Дать возможность зарегистрироваться игроку.
