@@ -26,7 +26,7 @@ jobs:
 
     steps:
     - name: Git clone repo
-      uses: actions/checkout@v1
+      uses: actions/checkout@v3
       
-    - name: Create ZIP deployment package without github file(exlude)
-      run : zip -r ${{  }} ./ -x *.git*
+    # - name: Create ZIP deployment package without github file(exlude)
+    #  run : zip -r ${{  }} ./ -x *.git*
