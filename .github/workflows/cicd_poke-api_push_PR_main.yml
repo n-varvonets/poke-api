@@ -1,0 +1,32 @@
+name: CI-CD-PokeApi-to-AWS-ElasticBeanstalk
+
+env:
+  # take from AWS
+  EB_PACKAGE_S3_BUCKET_NAME: "actions-poke-api-packeges"
+  EB_APPLICATION_NAME      : "poke-api-app-actions" 
+  EB_ENVIRONMENT_NAME      : "Pokeapiappactions-env"
+  AWS_REGION_NAME          : "eu-central-1"
+  # create a new name of current worflow status with hash of commit
+  DEPLOY_PACKAGE_NAME      : "poke-api-actions-app${{ github.sha }}.zip"
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  ci_part:
+
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 4
+      matrix:
+        python-version: [3.9]
+
+    steps:
+    - name: Git clone repo
+      uses: actions/checkout@v1
+      
+    - name: Create ZIP deployment package without github file(exlude)
+      run : zip -r ${{  }} ./ -x *.git*
