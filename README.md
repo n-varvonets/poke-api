@@ -1,3 +1,15 @@
+# GitHub Actions status:
+ - Status of last Deployment: <br>
+<img src="https://github.com/n-varvonets/poke-api/workflows/CI-CD-PokeApi-to-AWS-ElasticBeanstalk/badge.svg?branch=main"><br>
+
+# Stack of tech:
+- Python 3.10.9
+- Django 4.1.6
+- GitHub Actions
+- RDS
+- Elastic Beanstalk
+- Rout53, SSL
+
 # Task:
 Создать ВЕБ Сервис - “Pokeapi”:
 Дать возможность зарегистрироваться игроку.
