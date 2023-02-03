@@ -16,6 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+# from core.views import index_page # first not actual version hardcore import view from an app
+from django.urls import include
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # path('', index_page),  # ПРРОБЛЕМА:если сотни вьюх из разньіх 'app', то здесь будет бардак,
+    # РЕШЕНИЕ: проще обращаться к конкретному 'арр' внутри файла urls - разделение логики: include
+    path('', include('core.urls'))
 ]
