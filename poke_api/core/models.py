@@ -10,7 +10,6 @@ class Pokemon(models.Model):
     name = models.CharField(max_length=200)
     slug = models.SlugField(max_length=25, unique=True)
 
-
     # image = # sprites.other.official-artwork.front_default
     # abilities =  #  abilities: (list)
     # #                   - ability.name
