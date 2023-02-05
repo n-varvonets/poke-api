@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<!--хоршим тоном(DRY) является использовать один base.HТМL с БЛОКАМИ,
+ а потом его расширять в наследумьіх HTML pages-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} Base title {% endblock %}</title>
+{% block style %}
+
+{% endblock %}
+</head>
+<body>
+{% block body %}
+Here my base variable '{{ base_html_variable_for_index }}'
+{% endblock %}
+</body>
+</html>

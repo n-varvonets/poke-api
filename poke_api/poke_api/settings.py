@@ -55,7 +55,8 @@ ROOT_URLCONF = 'poke_api.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [],  # project labeled templates - using when have 1+ apps as main template and indicate his here
+        # if we have just 1 app - it doesn't necessary and we can use templates JUST INTO app-labeled
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
