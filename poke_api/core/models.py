@@ -19,7 +19,7 @@ class Pokemon(models.Model):
 
     # published = models.DateTimeField(auto_now_add=True)
 
-    print("Explanation of O2O, O2M=FK, M2M and on_delete")
+    # print("Explanation of O2O, O2M=FK, M2M and on_delete")
     # owner = models.OneToOneField(User, on_delete=models.)  # One User and he has One Pokemon (Я_и_ДЕВУШКА верньіе)
     owner_of_poke = models.ForeignKey(User, on_delete=models.CASCADE)  # One User and he has Many Pokemons.
     # on_delete=models.CASCADE - if we want to delete an Owner of client this means the Pokemon will be also erased.

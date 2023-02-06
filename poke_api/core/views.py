@@ -1,5 +1,6 @@
 from django.shortcuts import render, HttpResponse, get_object_or_404
 from .models import Pokemon
+from .forms import UserRegistrationFrom
 # Create your views here.
 
 
@@ -20,3 +21,27 @@ def list_pokes_page(request):
 def pokemon_detail(request, slug):
     pokemon = get_object_or_404(Pokemon, slug=slug)
     return render(request, 'details.html', {"pokemon": pokemon})
+
+
+def register_user(request):
+    if request.method == "POST":
+        user_form = UserRegistrationFrom(request.POST)
+
+        # check received form from client with answer of creating form and fill all required fields
+        if user_form.is_valid():
+            # create new user object, but we don't want to save that
+            # before need to check password
+            new_user = user_form.save(commit=False)
+
+            # set the chosen password
+            new_user.set_password(user_form.cleaned_data['password'])  # to check password by custom method of RegisterFromUser
+
+            # and now after valid form and password we can save it
+            new_user.save()
+            return render(request, "account/register_done.html", {"user_form": user_form})
+    else:
+        user_form = UserRegistrationFrom()  # just empty a new form
+    # if npt method post and not valid form with passw - return base reg form
+    return render(request, "account/register.html", {"user_form": user_form})
+
+

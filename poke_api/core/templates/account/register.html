@@ -1,0 +1,32 @@
+{% extends 'base.html'%}
+
+{% load crispy_forms_tags %}
+
+{% block title %} Register account {% endblock %}
+
+{% block style %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
+<style>
+     .register-style {
+        width:500px;
+        margin:auto;
+     }
+</style>
+
+{% endblock %}
+
+
+{% block body %}
+  <div class="container mt-4 register-style">
+      <h3>Register an account</h3>
+      <form action="" method="POST" novalidate>
+        {{ user_form | crispy }}
+        {% csrf_token %}
+<!-- novalidate - couse I don't want to use a validation form from browser, the validation will be in my logic of django app. -->
+<!-- also need to add csrf token couse of POST method -->
+        <input type="submit" value="Create Account" class="btn btn-success">
+      </form>
+  </div>
+{% endblock %}
