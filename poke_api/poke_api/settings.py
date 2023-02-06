@@ -31,6 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'core',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,7 +43,6 @@ INSTALLED_APPS = [
     "crispy_forms",
     "crispy_bootstrap5",
 
-    'core',
 ]
 
 MIDDLEWARE = [
@@ -120,7 +121,7 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 # login redirect as using build django form login ---> was first imported in .core.urls
 LOGIN_REDIRECT_URL = 'list_pokes_page'  # so after login django will redirect response in .core.urls. name = 'list_pokes_page'
 LOGIN_URL = 'login'
-LOGOUT_URL = 'logout'
+LOGOUT_URL = 'logout'  # need to indicate object of Logout class imported in .urls.py and in setting lift up our app 'core'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
