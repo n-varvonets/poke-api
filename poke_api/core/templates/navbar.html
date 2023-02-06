@@ -5,26 +5,48 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <ul class="navbar-nav me-auto mb-2 mb-md-0">
+
+        {% if request.user.is_authenticated %}
+
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Home
+          <a class="nav-link dropdown-toggle pl-5" href="{% url 'list_pokes_page' %}" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            My Cabinet
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Action</a></li>
+<!--            <li><hr class="dropdown-divider"></li>-->
             <li><a class="dropdown-item" href="#">My pokemons</a></li>
-            <li><a class="dropdown-item" href="#">All pokemons</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">About</a></li>
+            <li><a class="dropdown-item" href="{% url 'list_pokes_page' %}">See all pokemons</a></li>
           </ul>
         </li>
         <li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Welcome, {user}</a>
+          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Welcome, {{request.user.username}}</a>
+            {#  request.user.username - into django we have special way to dress to user #}
+        </li>
+        <li class="nav-item dropdown mx-4">
+          <a class="nav-link dropdown-toggle ml-3" href="#" id="navbarAPIDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Api
+          </a>
+
+          <ul class="dropdown-menu" aria-labelledby="navbarAPIDropdown">
+            <li><a class="dropdown-item" href="#">Get my pokemons</a></li>
+            <li><a class="dropdown-item" href="{% url 'list_pokes_page' %}">Get all pokemons</a></li>
+          </ul>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{% url 'logout' %}">Logout</a>
         </li>
+        {% else %}
 
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'login' %}">Login</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'register_user' %}">Register</a>
+        </li>
+
+        {% endif %}
       </ul>
     </div>
   </div>
