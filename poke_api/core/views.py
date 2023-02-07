@@ -1,6 +1,7 @@
 from django.shortcuts import render, HttpResponse, get_object_or_404, redirect
 from .models import Pokemon
 from .forms import UserRegistrationFrom, PokemonAddingForm, PokemonUpdatingForm
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 
@@ -10,6 +11,7 @@ def index_page(request):
     return render(request, "base.html", {"index_page_welcome_data": index_page_welcome_data})
 
 
+@login_required  # login_required if user is not authed - he will be redirected in login page
 def list_pokes_page(request):
     # return HttpResponse("Welcome to index page")
     hardcore_list_of_pokes = "Slow-Nick-Poke-Welcome from google"
@@ -45,6 +47,7 @@ def register_user(request):
     return render(request, "account/register.html", {"user_form": user_form})
 
 
+@login_required
 def pokemon_adding_form(request):
     pokemon_form = PokemonAddingForm(request.POST)
 
@@ -62,6 +65,7 @@ def pokemon_adding_form(request):
     return render(request, 'account/add_pokemon.html', {"pokemon_form": pokemon_form})
 
 
+@login_required
 def update_pokemon(request, slug):
     pokemon_instance = get_object_or_404(Pokemon, slug=slug)
 
@@ -77,6 +81,7 @@ def update_pokemon(request, slug):
     return render(request, 'account/update.html', {"update_poke_form": update_poke_form})
 
 
+@login_required
 def delete_poke(request, slug):
     pokemon = get_object_or_404(Pokemon, slug=slug)
     pokemon.delete()
