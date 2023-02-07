@@ -1,6 +1,6 @@
-from django.shortcuts import render, HttpResponse, get_object_or_404
+from django.shortcuts import render, HttpResponse, get_object_or_404, redirect
 from .models import Pokemon
-from .forms import UserRegistrationFrom
+from .forms import UserRegistrationFrom, PokemonAddingForm
 # Create your views here.
 
 
@@ -44,4 +44,20 @@ def register_user(request):
     # if npt method post and not valid form with passw - return base reg form
     return render(request, "account/register.html", {"user_form": user_form})
 
+
+def pokemon_adding_form(request):
+    pokemon_form = PokemonAddingForm(request.POST)
+
+    if request.method == "POST":
+        if pokemon_form.is_valid():  # we have all fields in appropriate type
+            # in this we need to save the data by creating a new pokemon
+            pokemon = pokemon_form.save(commit=False)
+            pokemon.owner_of_poke = request.user  # по здаумке, тот кто создает нового покемона - тот и будет его владельцем
+            pokemon = pokemon_form.save()
+            return redirect('list_pokes_page')
+
+    else:
+        # если по урл формьі бьіл использован другой методо - возращаем просто пустую форму
+        pokemon_form = PokemonAddingForm()
+    return render(request, 'account/add_pokemon.html', {"pokemon_form": pokemon_form})
 

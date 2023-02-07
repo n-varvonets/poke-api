@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django import forms
-
+from .models import Pokemon
 
 class UserRegistrationFrom(forms.ModelForm):
     # there're two form which we can use:
@@ -20,3 +20,9 @@ class UserRegistrationFrom(forms.ModelForm):
         if cd['password'] != cd["password2"]:
             raise forms.ValidationError("Password is not matching, hello from {forms.py}")
         return cd["password2"]
+
+
+class PokemonAddingForm(forms.ModelForm):
+    class Meta:
+        model = Pokemon
+        fields = ('name', )
