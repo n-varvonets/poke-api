@@ -22,7 +22,7 @@
     <h5>Owner: {{pokemon.owner_of_poke}}</h5>
 
     {% if request.user == pokemon.owner_of_poke %}
-        <a class="btn btn-danger mx-3 mt-3" href="">Delete</a>
+        <a class="btn btn-danger mx-3 mt-3" href="{% url 'delete_pokemon' pokemon.slug %}">Delete</a>
         <a class="btn btn-warning mx-3 mt-3" href="{% url 'update_pokemon' pokemon.slug %}">Update</a>
     {% endif %}
 <!--    also need to pass a slug a poke which we want to update-->

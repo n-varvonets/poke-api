@@ -68,10 +68,16 @@ def update_pokemon(request, slug):
     # Если мьі хотим, что бьі форма бьіла аполненнная тукщей записей в которой хотим изменить что-то, то
     # нужно в форму передавать ПОМИМО запроса ЕЩЕ и инанс самой записи
     # update_poke_form = PokemonUpdatingForm(request.POST)
-    update_poke_form = PokemonUpdatingForm(request.POST or None, instance=pokemon_instance)  # - хз чем єто отличается от нижней, но блогер так написал
+    update_poke_form = PokemonUpdatingForm(request.POST or None, instance=pokemon_instance)
 
     if request.method == "POST":
         if update_poke_form.is_valid():
             update_poke_form.save()
             return redirect('list_pokes_page')
     return render(request, 'account/update.html', {"update_poke_form": update_poke_form})
+
+
+def delete_poke(request, slug):
+    pokemon = get_object_or_404(Pokemon, slug=slug)
+    pokemon.delete()
+    return redirect('list_pokes_page')
