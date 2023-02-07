@@ -1,13 +1,13 @@
 from django.shortcuts import render, HttpResponse, get_object_or_404, redirect
 from .models import Pokemon
-from .forms import UserRegistrationFrom, PokemonAddingForm
+from .forms import UserRegistrationFrom, PokemonAddingForm, PokemonUpdatingForm
 # Create your views here.
 
 
 def index_page(request):
     # return HttpResponse("Welcome to index page")
-    base_html_variable_for_index = "base_html_variable_for_index_from_VIEW"
-    return render(request, "base.html", {"base_html_variable_for_index": base_html_variable_for_index})
+    index_page_welcome_data = "Welcome to Poke Api app!\n Below need to add an interesting info for NOT authed user"
+    return render(request, "base.html", {"index_page_welcome_data": index_page_welcome_data})
 
 
 def list_pokes_page(request):
@@ -61,3 +61,17 @@ def pokemon_adding_form(request):
         pokemon_form = PokemonAddingForm()
     return render(request, 'account/add_pokemon.html', {"pokemon_form": pokemon_form})
 
+
+def update_pokemon(request, slug):
+    pokemon_instance = get_object_or_404(Pokemon, slug=slug)
+
+    # Если мьі хотим, что бьі форма бьіла аполненнная тукщей записей в которой хотим изменить что-то, то
+    # нужно в форму передавать ПОМИМО запроса ЕЩЕ и инанс самой записи
+    # update_poke_form = PokemonUpdatingForm(request.POST)
+    update_poke_form = PokemonUpdatingForm(request.POST or None, instance=pokemon_instance)  # - хз чем єто отличается от нижней, но блогер так написал
+
+    if request.method == "POST":
+        if update_poke_form.is_valid():
+            update_poke_form.save()
+            return redirect('list_pokes_page')
+    return render(request, 'account/update.html', {"update_poke_form": update_poke_form})

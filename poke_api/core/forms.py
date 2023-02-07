@@ -26,3 +26,9 @@ class PokemonAddingForm(forms.ModelForm):
     class Meta:
         model = Pokemon
         fields = ('name', )
+
+
+class PokemonUpdatingForm(forms.ModelForm):
+    class Meta:
+        model = Pokemon
+        fields = ('name', 'owner_of_poke')
