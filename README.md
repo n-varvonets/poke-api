@@ -55,3 +55,8 @@ Core concepts(similar to folder):
 We can use it by:
        - cli
        - AWS web-app
+
+eb init -p python-3.8 poke_eb_proj --region 'eu-central-1'
+(aws-access-id): AKIASBKR2UWDPVFNX3PL
+(aws-secret-key): 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
+eb create poke-eb-env

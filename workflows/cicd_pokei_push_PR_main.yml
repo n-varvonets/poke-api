@@ -1,0 +1,70 @@
+#name: CI-CD-PokeApi-to-AWS-ElasticBeanstalk
+#
+#env:
+#  # take from AWS
+#  EB_PACKAGE_S3_BUCKET_NAME: "actions-poke-api-packeges"
+#  EB_APPLICATION_NAME      : "poke-api-app-actions"
+#  EB_ENVIRONMENT_NAME      : "Pokeapiappactions-env"
+#  AWS_REGION_NAME          : "eu-central-1"
+#  # create a new name of current worflow status with hash of commit
+#  DEPLOY_PACKAGE_NAME      : "poke-api-actions-app_${{ github.sha }}.zip"
+#
+#on:
+#  push:
+#    branches: [ "main" ]
+#  pull_request:
+#    branches: [ "main" ]
+#
+#jobs:
+#  ci_part:
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#    - name: Git clone repo
+#      uses: actions/checkout@v3
+#
+#    - name: Create ZIP deployment package without github file or exlude
+#      run : zip -r ${{ env.DEPLOY_PACKAGE_NAME }} ./ -x *.git*
+#
+#    # As CI we need to deploy this package in S3 bucket. For using S3 bucket we have to login.
+#    # When we created a new user github-actions-poke-api in IAM AWS we got folow credentionals
+#    # which saved in secrets AWS_ACCESS_KEY and AWS_SECRET_ACCESS_KEY
+#
+#    - name: Configure AWS Credentials
+#      uses: aws-actions/configure-aws-credentials@v1
+#      with:
+#        aws-access-key-id    : ${{ secrets.AWS_ACCESS_KEY }}
+#        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#        aws-region           : ${{ env.AWS_REGION_NAME }}
+#
+#    - name: Copy Deployment package to S3 bucket
+#      run : aws s3 cp ${{ env.DEPLOY_PACKAGE_NAME }} s3://${{ env.EB_PACKAGE_S3_BUCKET_NAME }}/
+#
+#  cd_part:
+#    runs-on: ubuntu-latest
+#    # cd part has to get executed after ci
+#    needs  : [ci_part]
+#
+#    steps:
+#      # need:
+#      #   - again for cd login into AW(copy-past)S;
+#      #   - make a new Elastic Beanstalk version using packed stored in S3 bucket;
+#      #   - deploy app on AWS instance
+#
+#      - name: Configure AWS Credentials
+#        uses: aws-actions/configure-aws-credentials@v1
+#        with:
+#          aws-access-key-id    : ${{ secrets.AWS_ACCESS_KEY }}
+#          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#          aws-region           : ${{ env.AWS_REGION_NAME }}
+#
+#      - name: Create a new Elastic Beanstalk App Version
+#        run : |
+#          aws elasticbeanstalk create-application-version \
+#          --application-name ${{ env.EB_APPLICATION_NAME }} \
+#          --source-bundle S3Bucket="${{ env.EB_PACKAGE_S3_BUCKET_NAME }}",S3Key="${{ env.DEPLOY_PACKAGE_NAME }}" \
+#          --version-label "Ver-${{ github.sha }}" \
+#          --description "Commit-SHA-${{ github.sha }}"
+#
+#      - name: Deploy new ElasticBeanstalk App Version
+#        run : aws elasticbeanstalk update-environment --environment-name ${{ env.EB_ENVIRONMENT_NAME }} --version-label "Ver-${{ github.sha }}"
