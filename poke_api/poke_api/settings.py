@@ -82,8 +82,12 @@ WSGI_APPLICATION = 'poke_api.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'poke_db',
+        'USER': 'admin',
+        'PASSWORD': 'QQQqqq111',
+        'HOST': 'pokedb.chc4np2txjpi.eu-central-1.rds.amazonaws.com',
+        'PORT': 3306
     }
 }
 

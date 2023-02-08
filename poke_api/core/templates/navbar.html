@@ -16,6 +16,7 @@
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="#">My pokemons</a></li>
             <li><a class="dropdown-item" href="{% url 'list_pokes_page' %}">See all pokemons</a></li>
+            <li><a class="dropdown-item" href="#">API</a></li>
               <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="{% url 'password-change' %}">Change password</a></li>
 
@@ -24,16 +25,6 @@
         <li class="nav-item">
           <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Welcome, {{request.user.username}}</a>
             {#  request.user.username - into django we have special way to dress to user #}
-        </li>
-        <li class="nav-item dropdown mx-4">
-          <a class="nav-link dropdown-toggle ml-3" href="#" id="navbarAPIDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Api
-          </a>
-
-          <ul class="dropdown-menu" aria-labelledby="navbarAPIDropdown">
-            <li><a class="dropdown-item" href="#">Get my pokemons</a></li>
-            <li><a class="dropdown-item" href="{% url 'list_pokes_page' %}">Get all pokemons</a></li>
-          </ul>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{% url 'logout' %}">Logout</a>

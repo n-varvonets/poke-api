@@ -30,3 +30,28 @@ PokéAPI Этот веб-сайт предоставляет интерфейс 
 Результат работы должен быть представлен на GitHub. Для запуска должно быть достаточно выполнить:
 git clone
 docker-compose up --build
+
+#  Elastic Beanstalk
+It's service for deploying and scaling web applications and services developed
+    - with lang:Java, dotnet, PHP, NodeJS, Python, Ruby, Go 
+    - and docker familiar services: Apache, NGINX, passenger, and IIS.
+
+You can simply upload your code and elastic Beanstalk automatically handles the deployment from:
+    - capacity provisioning(забезпечення потужності),
+    - load balancing,
+    - auto-scaling applications,
+    - health monitoring.
+
+The same time you will_retain_full(сохранит полную) control over database
+resources powering your application can access than their land resources at anytime
+
+Elastic Beanstalk is THE FASTEST AND SIMPLEST way to deploy your application on AWS
+
+Core concepts(similar to folder):
+    - Application: our logic of web-app
+    - Application Version: labeled iteration of deployed code
+    - Environment: collection of DB-resources running on an application version
+
+We can use it by:
+       - cli
+       - AWS web-app
