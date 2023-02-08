@@ -57,7 +57,25 @@ We can use it by:
        - AWS web-app
 
 % mariadb-devel - иногда mysql может давать ошибку, поєтому используем "мариюдб"
-eb init -p python-3.8 poke-eb-project --region 'eu-central-1'
+1)
+eb init -p python-3.8 poke-eb-project
 (aws-access-id): AKIASBKR2UWDPVFNX3PL
 (aws-secret-key): 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
+eb init -p python-3.8 poke-eb-project --region 'eu-central-1c'
 eb create poke-eb-env
+
+2)
+cat /Users/1000geeks/.aws/config
+>>> [profile eb-cli]
+>>> aws_access_key_id = AKIASBKR2UWDPVFNX3PL
+>>> aws_secret_access_key = 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
+
+eb init --profile eb-cli
+eb create poke-eb-env
+
+
+export AWS_ACCESS_KEY_ID="AKIASBKR2UWDPVFNX3PL"
+export AWS_SECRET_ACCESS_KEY="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"
+export AWS_DEFAULT_REGION="eu-central-1c"
+eb init
+eb create poke-eb-project
