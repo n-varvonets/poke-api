@@ -17,10 +17,10 @@ jobs:
         run: pwd
       - name: Check ls root
         run: ls -la
-      - name: Check ls root/poke-api
-        run: ls -la poke-api/
+      - name: Check ls root/poke_api
+        run: ls -la poke_api/
       - name: Install requirements.txt
-        run: pip install -r poke-api/requirements.txt
+        run: pip install -r poke_api/requirements.txt
       - name: Tests
-        run: python poke-api/manage.py test
+        run: python poke_api/manage.py test
 
