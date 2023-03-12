@@ -1,0 +1,18 @@
+name: CI Nick poke
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  run_tests:
+    runs-on: [ubuntu-latest]
+    steps:
+      - uses: actions/checkout@main  # склонируем репозиторий GitHub main ветки в рабочее пространство вашего workflow
+      - uses: actions/setup-python@v1 # установка питона
+        with:
+          python-version: 3.9
+          architecture: 'x64'
+      - name: Tests
+        run: python manage.py test
+

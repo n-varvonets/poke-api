@@ -79,18 +79,31 @@ WSGI_APPLICATION = 'poke_api.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-
+#
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'poke_db',
+#         'USER': 'admin',
+#         'PASSWORD': 'QQQqqq111',
+#         'HOST': 'pokedb.chc4np2txjpi.eu-central-1.rds.amazonaws.com',
+#         'PORT': 3306
+#     }
+# }
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'poke_db',
-        'USER': 'admin',
-        'PASSWORD': 'QQQqqq111',
-        'HOST': 'pokedb.chc4np2txjpi.eu-central-1.rds.amazonaws.com',
-        'PORT': 3306
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'poke_api',
+        'USER': 'postgres',
+        'PASSWORD': '1000g0001',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
-
+# CREATE DATABASE poke_api;
+# CREATE USER admin_nick WITH PASSWORD 'admin_nick';
+# GRANT ALL PRIVILEGES ON DATABASE poke_api TO admin_nick;
+# python manage.py createsuperuser  (poke_admin | admin)
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
