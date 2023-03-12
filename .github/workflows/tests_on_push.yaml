@@ -30,7 +30,9 @@ jobs:
       NAME: ${{ secrets.DOCKER_NAME_IMAGE }}
     steps:
       - name: Login to docker
-        run: echo ${{ secrets.DOCKER_TOKEN }} | docker login -u ${{ secrets.DOCKER_LOGIN }} --password=stdin
+        # --password-stdin необходим для автоматизации процесса аутентификации в Docker-репозитории в средах,
+        # где нет возможности вводить пароль вручную, например, в CI/CD платформах.
+        run: echo ${{ secrets.DOCKER_TOKEN }} | docker login -u ${{ secrets.DOCKER_LOGIN }} --password-stdin
       - uses: actions/checkout@main
       - name: Build image # отрезаем перьіе 11 символов которьіе равняются префиксу
         run: docker build -t $LOGIN/$NAME:${GITHUB_REF:11} -f Dockerfile .
