@@ -35,11 +35,17 @@ jobs:
 #        run: echo ${{ secrets.DOCKER_TOKEN }} | docker login -u ${{ secrets.DOCKER_LOGIN }} --password-stdin
         run: echo "${{ secrets.DOCKER_TOKEN }}" | docker login -u "${{ secrets.DOCKER_LOGIN }}" --password-stdin
       - uses: actions/checkout@main
+      - name: Check pwd
+        run: pwd
+      - name: Check ls root
+        run: ls -la
+
       - name: Build image
         # Переменная ${GITHUB_REF} является переменной окружения, которая хранит имя текущей ветки в вашем репозитории GitHub.
         # Например, если текущая ветка - refs/heads/main, то ${GITHUB_REF:11} вернет main.
         # . (точка) используется для указания текущей директории.
+        # ./ (точка с наклонной линией)означает текущую директорию, где находится Dockerfile.
 #        run: docker build -t $LOGIN/$NAME:${GITHUB_REF:11} -f Dockerfile .
-        run: docker build -t $LOGIN/$NAME:${GITHUB_REF:11} -f Dockerfile ./
+        run: docker build -t $LOGIN/$NAME:${GITHUB_REF:11} -f Dockerfile ../
       - name: Push image to docker
         run: docker push $LOGIN/$NAME:${GITHUB_REF:11}
