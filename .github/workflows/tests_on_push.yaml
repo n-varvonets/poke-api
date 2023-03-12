@@ -15,8 +15,6 @@ jobs:
           architecture: 'x64'
       - name: Check pwd
         run: pwd
-      - name: Check ls root
-        run: ls -la
       - name: Check ls root/poke_api
         run: ls -la poke_api/
       - name: Install requirements.txt
