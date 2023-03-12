@@ -13,8 +13,12 @@ jobs:
         with:
           python-version: 3.9
           architecture: 'x64'
+      - name: Check pwd and ls
+        run:
+          - pwd
+          - ls -la
       - name: Install requirements.txt
-        run: pip install -r requirements.txt
+        run: pip install -r poke-api/requirements.txt
       - name: Tests
         run: python poke-api/manage.py test
 
