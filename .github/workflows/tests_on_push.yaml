@@ -40,6 +40,6 @@ jobs:
         # Например, если текущая ветка - refs/heads/main, то ${GITHUB_REF:11} вернет main.
         # . (точка) используется для указания текущей директории.
 #        run: docker build -t $LOGIN/$NAME:${GITHUB_REF:11} -f Dockerfile .
-        run: docker build -t $LOGIN/$NAME:${GITHUB_REF:11} -f Dockerfile .
+        run: docker build -t $LOGIN/$NAME:${GITHUB_REF:11} -f Dockerfile ./
       - name: Push image to docker
         run: docker push $LOGIN/$NAME:${GITHUB_REF:11}
