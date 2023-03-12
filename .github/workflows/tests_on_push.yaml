@@ -46,6 +46,6 @@ jobs:
         # . (точка) используется для указания текущей директории.
         # ./ (точка с наклонной линией)означает текущую директорию, где находится Dockerfile.
 #        run: docker build -t $LOGIN/$NAME:${GITHUB_REF:11} -f Dockerfile .
-        run: docker build -t $LOGIN/$NAME:${GITHUB_REF:11} -f Dockerfile ../
+        run: docker build -t $LOGIN/$NAME:${GITHUB_REF:11} -f Dockerfile ./poke_api/
       - name: Push image to docker
         run: docker push $LOGIN/$NAME:${GITHUB_REF:11}
