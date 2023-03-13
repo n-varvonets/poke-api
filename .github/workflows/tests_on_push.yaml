@@ -13,8 +13,8 @@ jobs:
         image: postgres:latest
         env:
           POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: github_actions
+          POSTGRES_PASSWORD: 1000g0001
+          POSTGRES_DB: poke_api
         ports:
           - 5432:5432
         # needed because the postgres container does not provide a healthcheck
