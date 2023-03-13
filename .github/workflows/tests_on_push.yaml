@@ -48,7 +48,8 @@ jobs:
         # run: docker build -t $LOGIN/$NAME:${GITHUB_REF:11} -f Dockerfile .
         # run: docker build -t $LOGIN/$NAME:${GITHUB_REF:11} -f Dockerfile ./poke_api/
 #        run: docker build -t myimage:latest -f poke_api/Dockerfile .
-        run: docker build -t $LOGIN/$NAME:"${{GITHUB_REF:11}}" -f poke_api/Dockerfile .
+#        run: docker build -t $LOGIN/$NAME:"${{GITHUB_REF:11}}" -f poke_api/Dockerfile .
+        run: docker build -t $LOGIN/$NAME:"${{ github.ref }}:11" -f poke_api/Dockerfile .
 
       - name: Push image to docker
         run: docker push $LOGIN/$NAME:${GITHUB_REF:11}
