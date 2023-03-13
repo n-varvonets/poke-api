@@ -7,9 +7,8 @@ RUN apl update && pip install -r /poke-api/poke_api/requirements.txt --no-cache-
 EXPOSE 8000
 
 # CWD ["python3", "/poke-api/poke_api/manage.py", "runserver", "0.0.0.0:8000"]
-CWD ["python", "/poke_api/manage.py", "runserver", "0.0.0.0:8000"]
-
-
+# CWD ["python", "/poke_api/manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["python", "/poke_api/manage.py", "runserver", "0.0.0.0:8000"]
 
 
 
