@@ -52,7 +52,7 @@ jobs:
 #        run: docker build -t $LOGIN/$NAME:"${{ github.ref }}:11" -f poke_api/Dockerfile .
 #        run: docker build -t $LOGIN/$NAME:${{ github.ref }}-11 -f poke_api/Dockerfile .
 #        run: docker build -t $LOGIN/$NAME:${{ github.ref }}-11 poke_api/ -f poke_api/Dockerfile
-        run: docker build -t $LOGIN/$NAME:${{ github.ref }}-11 -f poke_api/Dockerfile .
+        run: docker build -t "${{ secrets.DOCKER_LOGIN }}"/"${{ secrets.DOCKER_NAME_IMAGE }}":${{ github.ref }}-11 -f poke_api/Dockerfile .
 
 
 
