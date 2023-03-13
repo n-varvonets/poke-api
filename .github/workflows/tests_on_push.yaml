@@ -1,15 +1,3 @@
-version: '3'
-services:
-  postgres:
-    # определяет контейнер с именем postgres, который использует официальный образ PostgreSQL и экспонирует порт 5432 для TCP/IP-подключений.
-    # Он также определяет переменные окружения для базы данных PostgreSQL.
-    image: postgres:13
-    ports:
-      - "5432:5432"
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 1000g0001
-      POSTGRES_DB: poke_api
 
 name: CI Nick poke workflow
 on:
@@ -22,12 +10,10 @@ jobs:
     runs-on: [ubuntu-latest]
     steps:
       - uses: actions/checkout@main  # склонируем репозиторий GitHub main ветки в рабочее пространство вашего workflow
-      - uses: actions/setup-python@v2 # установка питона
+      - uses: actions/setup-python@v3 # установка питона
         with:
           python-version: 3.9
           architecture: 'x64'
-      - name: Start PostgreSQL  # Start PostgreSQL container
-        run: docker-compose up -d postgres
       - name: Check pwd
         run: pwd
       - name: Check ls root/poke_api
@@ -36,8 +22,6 @@ jobs:
         run: pip install -r poke_api/requirements.txt
       - name: Tests
         run: python poke_api/manage.py test
-      - name: Stop PostgreSQL   # Stop PostgreSQL container
-        run: docker-compose down
   build_and_pub:
     needs: [run_tests]
     runs-on: [ubuntu-latest]
