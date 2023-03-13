@@ -11,7 +11,6 @@ services:
       POSTGRES_PASSWORD: 1000g0001
       POSTGRES_DB: poke_api
 
-
 name: CI Nick poke workflow
 on:
   push:
