@@ -6,13 +6,11 @@ COPY ./ /poke-api/
 RUN apk update && pip install --upgrade -r /poke-api/poke_api/requirements.txt --no-cache-dir
 # указьіваю что будем работат с портом 8000
 EXPOSE 8000
-
-FROM postgres:latest
-EXPOSE 5433
+=
 
 # CWD ["python3", "/poke-api/poke_api/manage.py", "runserver", "0.0.0.0:8000"]
 # CWD ["python", "/poke_api/manage.py", "runserver", "0.0.0.0:8000"]
-CMD ["python", "/poke-api/poke_api/manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["python3", "/poke-api/poke_api/manage.py", "runserver", "0.0.0.0:8000"]
 
 
 
