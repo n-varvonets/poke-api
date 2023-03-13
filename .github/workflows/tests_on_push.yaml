@@ -28,7 +28,7 @@ jobs:
     # Внешний том(volume) и место где он будет подключен внутри контейнера
     volumes:
       - postgres_volume:/var/lib/postgresql/data/
-    environment:
+    env:
       # Учетные данные, которые можно будет переопределить
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=1000g0001
@@ -62,8 +62,8 @@ jobs:
         run: docker push $LOGIN/$NAME:${GITHUB_REF:11}
 
 
-  volumes:
-    postgres_volume:
+volumes:
+  postgres_volume:
 
 
 
