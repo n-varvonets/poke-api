@@ -55,31 +55,3 @@ jobs:
 
 
 
-
-jobs:
-  run_tests:
-    runs-on: [ubuntu-latest]
-    steps:
-      - uses: actions/checkout@main
-      - uses: actions/setup-python@v3
-        with:
-          python-version: 3.9
-          architecture: 'x64'
-      - name: Install requirements.txt
-        run: pip install -r poke_api/requirements.txt
-      - name: Tests
-        run: python poke_api/manage.py test
-  build_and_pub:
-    needs: [run_tests]
-    runs-on: [ubuntu-latest]
-    env:
-      LOGIN: ${{ secrets.DOCKER_LOGIN }}
-      NAME: ${{ secrets.DOCKER_NAME_IMAGE }}
-    steps:
-      - name: Login to docker
-        run: echo "${{ secrets.DOCKER_TOKEN }}" | docker login -u "${{ secrets.DOCKER_LOGIN }}" --password-stdin
-      - uses: actions/checkout@main
-      - name: Build image
-        run: docker build -t $LOGIN/$NAME:${GITHUB_REF:11} -f Dockerfile .
-      - name: Push image to docker
-        run: docker push $LOGIN/$NAME:${GITHUB_REF:11}
