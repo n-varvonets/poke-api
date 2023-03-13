@@ -8,18 +8,34 @@ on:
 jobs:
   run_tests:
     runs-on: [ubuntu-latest]
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: github_actions
+        ports:
+          - 5432:5432
+        # needed because the postgres container does not provide a healthcheck
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
     steps:
       - uses: actions/checkout@main  # склонируем репозиторий GitHub main ветки в рабочее пространство вашего workflow
       - uses: actions/setup-python@v3 # установка питона
         with:
           python-version: 3.9
           architecture: 'x64'
+#      - name: psycopg2 prerequisites
+#        run: sudo apt-get install libpq-dev
       - name: Check pwd
         run: pwd
       - name: Check ls root/poke_api
         run: ls -la poke_api/
       - name: Install requirements.txt
         run: pip install -r poke_api/requirements.txt
+      - name: Run migrations
+        run: python poke_api/manage.py migrate
       - name: Tests
         run: python poke_api/manage.py test
   db:
