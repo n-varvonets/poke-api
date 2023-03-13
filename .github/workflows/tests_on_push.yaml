@@ -62,8 +62,8 @@ jobs:
         run: docker push $LOGIN/$NAME:${GITHUB_REF:11}
 
 
-volumes:
-  postgres_volume:
+  volumes:
+    postgres_volume:
 
 
 
