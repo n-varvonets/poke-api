@@ -15,8 +15,8 @@ EXPOSE 8000
 
 # CWD ["python3", "/poke-api/poke_api/manage.py", "runserver", "0.0.0.0:8000"]
 # CWD ["python", "/poke_api/manage.py", "runserver", "0.0.0.0:8000"]
-# CMD ["python3", "/poke_api/manage.py", "runserver", "0.0.0.0:8000"]
-CMD ["python3", "/poke-api/poke_api/manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["python3", "/poke_api/manage.py", "runserver", "0.0.0.0:8000"]
+# CMD ["python3", "/poke-api/poke_api/manage.py", "runserver", "0.0.0.0:8000"]
 
 
 
