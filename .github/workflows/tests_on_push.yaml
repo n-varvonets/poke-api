@@ -38,17 +38,7 @@ jobs:
         run: python poke_api/manage.py migrate
       - name: Tests
         run: python poke_api/manage.py test
-  db:
-    # Образ и версия базы, которую мы будем использовать
-    image: postgres:13.0-alpine
-    # Внешний том(volume) и место где он будет подключен внутри контейнера
-    volumes:
-      - postgres_volume:/var/lib/postgresql/data/
-    env:
-      # Учетные данные, которые можно будет переопределить
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=1000g0001
-      - POSTGRES_DB=poke_api
+
   build_and_pub:
     needs: [run_tests]
     runs-on: [ubuntu-latest]
@@ -78,8 +68,6 @@ jobs:
         run: docker push $LOGIN/$NAME:${GITHUB_REF:11}
 
 
-volumes:
-  postgres_volume:
 
 
 
