@@ -8,7 +8,7 @@ RUN apk update && pip install --upgrade -r /poke-api/poke_api/requirements.txt -
 EXPOSE 8000
 
 FROM postgres:latest
-EXPOSE 5432
+EXPOSE 5433
 
 # CWD ["python3", "/poke-api/poke_api/manage.py", "runserver", "0.0.0.0:8000"]
 # CWD ["python", "/poke_api/manage.py", "runserver", "0.0.0.0:8000"]
