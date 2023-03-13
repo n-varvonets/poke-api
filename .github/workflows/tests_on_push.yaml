@@ -1,4 +1,18 @@
-name: CI Nick poke
+version: '3'
+services:
+  postgres:
+    # определяет контейнер с именем postgres, который использует официальный образ PostgreSQL и экспонирует порт 5432 для TCP/IP-подключений.
+    # Он также определяет переменные окружения для базы данных PostgreSQL.
+    image: postgres:13
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1000g0001
+      POSTGRES_DB: poke_api
+
+
+name: CI Nick poke workflow
 on:
   push:
     branches:
@@ -9,10 +23,12 @@ jobs:
     runs-on: [ubuntu-latest]
     steps:
       - uses: actions/checkout@main  # склонируем репозиторий GitHub main ветки в рабочее пространство вашего workflow
-      - uses: actions/setup-python@v1 # установка питона
+      - uses: actions/setup-python@v2 # установка питона
         with:
           python-version: 3.9
           architecture: 'x64'
+      - name: Start PostgreSQL  # Start PostgreSQL container
+        run: docker-compose up -d postgres
       - name: Check pwd
         run: pwd
       - name: Check ls root/poke_api
@@ -21,6 +37,8 @@ jobs:
         run: pip install -r poke_api/requirements.txt
       - name: Tests
         run: python poke_api/manage.py test
+      - name: Stop PostgreSQL   # Stop PostgreSQL container
+        run: docker-compose down
   build_and_pub:
     needs: [run_tests]
     runs-on: [ubuntu-latest]
@@ -39,28 +57,13 @@ jobs:
         run: pwd
       - name: Check ls root
         run: ls -la
-
       - name: Build image
         # Переменная ${GITHUB_REF} является переменной окружения, которая хранит имя текущей ветки в вашем репозитории GitHub.
         # Например, если текущая ветка - refs/heads/main, то ${GITHUB_REF:11} вернет main.
         # . (точка) используется для указания текущей директории.
         # ./ (точка с наклонной линией)означает текущую директорию, где находится Dockerfile.
         run: docker build -t $LOGIN/$NAME:${GITHUB_REF:11} -f Dockerfile .
-#        run: docker build -t $LOGIN/$NAME:${GITHUB_REF:11} -f Dockerfile ./poke_api/
 #        run: docker build -t $LOGIN/$NAME:${GITHUB_REF:11} -f poke_api/Dockerfile .
-#        run: docker build -t myimage:latest -f poke_api/Dockerfile .
-#        run: docker build -t $LOGIN/$NAME:"${{GITHUB_REF:11}}" -f poke_api/Dockerfile .
-#        run: docker build -t $LOGIN/$NAME:"${{ github.ref }}:11" -f poke_api/Dockerfile .
-#        run: docker build -t $LOGIN/$NAME:${{ github.ref }}-11 -f poke_api/Dockerfile .
-
-#        run: docker build -t $LOGIN/$NAME:${{ github.ref }}-11 poke_api/ -f poke_api/Dockerfile
-#        run: docker build -t "${{ secrets.DOCKER_LOGIN }}"/"${{ secrets.DOCKER_NAME_IMAGE }}":${{ github.ref }}-11 -f poke_api/Dockerfile .
-#        run: docker build -t "${{ secrets.DOCKER_LOGIN }}"/"${{ secrets.DOCKER_NAME_IMAGE }}":"${{ github.ref }}":11 -f poke_api/Dockerfile .
-#        run: docker build -t "${{ secrets.DOCKER_LOGIN }}"/"${{ secrets.DOCKER_NAME_IMAGE }}":"${{ github.ref }}"-11 -f poke_api/Dockerfile .
-#        run: docker build -t "${{ secrets.DOCKER_LOGIN }}"/"${{ secrets.DOCKER_NAME_IMAGE }}":"${{ github.ref }}-11" -f poke_api/Dockerfile .
-#        run: docker build -t "${{ secrets.DOCKER_LOGIN }}"/"${{ secrets.DOCKER_NAME_IMAGE }}":"${{ github.ref }}:11" -f poke_api/Dockerfile .
-
-
-
       - name: Push image to docker
         run: docker push $LOGIN/$NAME:${GITHUB_REF:11}
+
