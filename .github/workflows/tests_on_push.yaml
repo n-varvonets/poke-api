@@ -22,7 +22,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@main  # склонируем репозиторий GitHub main ветки в рабочее пространство вашего workflow
-      - uses: actions/setup-python@v3 # установка питона
+      - uses: actions/setup-python@v2 # установка питона
         with:
           python-version: 3.9
           architecture: 'x64'
@@ -33,7 +33,9 @@ jobs:
       - name: Check ls root/poke_api
         run: ls -la poke_api/
       - name: Install requirements.txt
-        run: pip install -r poke_api/requirements.txt
+        run: |
+          pip install -r poke_api/requirements.txt
+          python -m pip install --upgrade pip
       - name: Run migrations
         run: python poke_api/manage.py migrate
       - name: Tests
